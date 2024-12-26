@@ -45,7 +45,7 @@ jobs:
         run: docker tag acorn-server3 ${{ steps.login-ecr.outputs.registry }}/acorn-server3:latest
 
       - name: ECR에 Docker 이미지 Push하기
-        run: docker push ${{ steps.login-ecr.outputs.registry }}/my-server-acorn1004:latest
+        run: docker push ${{ steps.login-ecr.outputs.registry }}/acorn-server3:latest
 
       - name: SSH로 EC2에 접속하기
         uses: appleboy/ssh-action@v1.0.3
@@ -57,5 +57,5 @@ jobs:
           script: |
             docker stop  acorn-server || true
             docker rm acorn-server || true
-            docker pull ${{ steps.login-ecr.outputs.registry }}/my-server-acorn1004:latest
-            docker run -d --name acorn-server -p 8080:8080 ${{ steps.login-ecr.outputs.registry }}/my-server-acorn1004:latest
+            docker pull ${{ steps.login-ecr.outputs.registry }}/acorn-server3:latest
+            docker run -d --name acorn-server -p 8080:8080 ${{ steps.login-ecr.outputs.registry }}/acorn-server3:latest
